@@ -34,6 +34,13 @@ const findAllPublishedSubjectWithCourseId = (
   })
 }
 
+const findSubjectBySubjectId = (subjectId, otherFilter) => {
+  return subjectModel.findOne({ subjectId, ...otherFilter, isDelete: false })
+}
+const findPublishedSubjectBySubjectId = (subjectId) => {
+  return findSubjectBySubjectId(subjectId, { isPublished: true })
+}
+
 const createSubject = (
   title,
   image,
@@ -58,4 +65,5 @@ export {
   findAllPublishedSubject,
   findAllPublishedSubjectWithCourseId,
   createSubject,
+  findPublishedSubjectBySubjectId,
 }

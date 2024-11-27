@@ -1,6 +1,5 @@
 import mongoose, { mongo, Schema } from 'mongoose'
-import { PRO } from '../configs/config.env'
-import dataLessonModel from './dataLesson.model'
+import dataLessonModel from './dataLesson.model.js'
 
 const COLLECTION_NAME = 'lessons'
 const DOCUMENT_NAME = 'lesson'
@@ -19,6 +18,10 @@ const lessonSchema = new mongoose.Schema(
     time: {
       type: Number,
       required: true,
+    },
+    isPublished: {
+      type: Boolean,
+      default: false,
     },
     data: {
       type: [dataLessonModel],
