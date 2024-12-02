@@ -5,6 +5,7 @@ import SubjectController from '../../controllers/subject.controller.js'
 
 const subjectRouter = express.Router()
 
+subjectRouter.use(authentication)
 subjectRouter.get(
   '/all-published',
   asyncHandler(SubjectController.getAllPublished),
@@ -14,7 +15,6 @@ subjectRouter.get(
   asyncHandler(SubjectController.getPublishedByCourseId),
 )
 
-// courseRouter.use(authentication)
 subjectRouter.post('/', asyncHandler(SubjectController.create))
 
 export default subjectRouter

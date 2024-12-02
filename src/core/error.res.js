@@ -34,8 +34,8 @@ class ForbiddenError extends ErrorRes {
 
 class AuthFailError extends ErrorRes {
   constructor(
-    message = reasonPharses.BAD_REQUEST,
-    status = statusCodes.BAD_REQUEST,
+    message = reasonPharses.UNAUTHORIZED,
+    status = statusCodes.UNAUTHORIZED,
   ) {
     super(message, status)
   }

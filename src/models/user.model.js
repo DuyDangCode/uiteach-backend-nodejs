@@ -11,12 +11,10 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     dateOfBirth: {
-      type: Date,
+      type: String,
     },
     gender: {
       type: String,
-      default: 'Nam',
-      enum: ['Nam', 'Nữ'],
     },
     avatar: {
       type: String,
@@ -28,6 +26,10 @@ const userSchema = new mongoose.Schema(
       maxLength: 50,
       unique: true,
       required: true,
+    },
+    name: {
+      type: String,
+      maxLength: 50,
     },
     password: {
       type: String,

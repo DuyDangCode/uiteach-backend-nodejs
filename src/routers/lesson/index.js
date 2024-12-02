@@ -5,12 +5,12 @@ import LessonController from '../../controllers/lesson.controller.js'
 
 const lessonRouter = express.Router()
 
+lessonRouter.use(authentication)
 lessonRouter.get(
   '/all-published/:subjectId',
   asyncHandler(LessonController.getAllPublishedBySubjectId),
 )
 
-// courseRouter.use(authentication)
 lessonRouter.post('/', asyncHandler(LessonController.create))
 
 export default lessonRouter

@@ -15,7 +15,16 @@ import { ROLES, USER_ROLES } from '../constant/user.constant.js'
 import UserService from './user.service.js'
 
 class AccessService {
-  static signup = async ({ username, password, role }) => {
+  static signup = async ({
+    username,
+    password,
+    role,
+    email,
+    name,
+    dateOfBirth,
+    phone,
+    gender,
+  }) => {
     if (!username || !password)
       throw new BadRequestError('Not find username or password')
 
@@ -38,9 +47,14 @@ class AccessService {
 
     //create new user
     const newUser = await userModel.create({
-      username: username,
+      username,
       password: passwordHash,
-      role: role,
+      role,
+      email,
+      name,
+      dateOfBirth,
+      phone,
+      gender,
     })
 
     if (!newUser) throw new BadRequestError('Create user fail.')
@@ -71,9 +85,9 @@ class AccessService {
       refeshToken: tokens.refreshToken,
     })
 
+    delete newUser.password
     return {
-      userId: newUser._id,
-      roles: newUser.role,
+      ...newUser,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     }
@@ -89,7 +103,6 @@ class AccessService {
             $regex: new RegExp(username, 'i'),
           },
         })
-        .select({ username: 1, password: 1, roles: 1 })
         .lean()) ||
       (await userModel
         .findOne({
@@ -97,7 +110,6 @@ class AccessService {
             $regex: new RegExp(username, 'i'),
           },
         })
-        .select({ username: 1, password: 1, roles: 1 })
         .lean())
 
     //check user exist
@@ -144,9 +156,9 @@ class AccessService {
       refeshToken: refreshToken,
     })
 
+    delete user.password
     return {
-      userId: userId,
-      roles: roles,
+      ...user,
       accessToken: accessToken,
       refreshToken: refreshToken,
     }
@@ -164,7 +176,7 @@ class AccessService {
     if (foundToken) {
       const { userId } = verifyJWT(refreshToken, foundKey.publicKey)
       await KeyService.removeById(foundToken._id)
-      throw new ForbiddenError('Some thing wrong')
+      throw new AuthFailError('Some thing wrong')
     }
 
     //get tokens in db
@@ -221,9 +233,9 @@ class AccessService {
     //   },
     // });
 
+    delete holderUser.password
     return {
-      userId: holderUser.userId,
-      roles: holderUser.roles,
+      ...holderUser,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     }

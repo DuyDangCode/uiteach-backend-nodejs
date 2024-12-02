@@ -5,6 +5,7 @@ import CourseController from '../../controllers/course.controller.js'
 
 const courseRouter = express.Router()
 
+courseRouter.use(authentication)
 courseRouter.get(
   '/all-published',
   asyncHandler(CourseController.getAllPublished),
@@ -14,7 +15,6 @@ courseRouter.get(
   asyncHandler(CourseController.getPublishedByCourseId),
 )
 
-// courseRouter.use(authentication)
 courseRouter.post('/', asyncHandler(CourseController.create))
 
 export default courseRouter
