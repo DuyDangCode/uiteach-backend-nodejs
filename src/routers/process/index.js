@@ -9,6 +9,7 @@ const processRouter = express.Router()
 processRouter.use(authentication)
 
 processRouter.post('/', asyncHandler(ProcessController.get))
+processRouter.post('/all', asyncHandler(ProcessController.getAll))
 processRouter.post('/create', asyncHandler(ProcessController.create))
 
 processRouter.post(

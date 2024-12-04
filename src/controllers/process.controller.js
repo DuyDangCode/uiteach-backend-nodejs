@@ -26,6 +26,12 @@ class ProcessController {
       metadata: await ProcessService.getProcess(req.body),
     }).send(res)
   }
+  static async getAll(req, res) {
+    return new OK({
+      message: 'UIT-LEARN::get process successful',
+      metadata: await ProcessService.getAllProcess(req.body),
+    }).send(res)
+  }
 }
 
 export default ProcessController

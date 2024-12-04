@@ -1,5 +1,6 @@
 import {
   createProcess,
+  findProcessWithUserEmail,
   findProcessWithUserEmailAndSubjectId,
 } from '../models/repositories/process.repo.js'
 
@@ -49,6 +50,9 @@ class ProcessService {
   }
   static getProcess({ userEmail, subjectId }) {
     return findProcessWithUserEmailAndSubjectId(userEmail, subjectId)
+  }
+  static getAllProcess({ userEmail }) {
+    return findProcessWithUserEmail(userEmail)
   }
 }
 
