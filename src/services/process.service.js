@@ -11,6 +11,11 @@ import processModel from '../models/process.model.js'
 class ProcessService {
   static async checkUser({ userId }) {}
   static async createProcess({ subjectId, userEmail, status }) {
+    const foundProcess = await findProcessWithUserEmailAndSubjectId(
+      userEmail,
+      subjectId,
+    )
+    if (foundProcess) return
     const lessons = await findAllPublishedLessonBySubjectId(subjectId)
     if (!lessons || lessons.length == 0)
       throw new BadRequestError('Not found lessons')
