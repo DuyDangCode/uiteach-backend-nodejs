@@ -1,30 +1,28 @@
 import mongoose from 'mongoose'
-import dataLessonModel from './dataLesson.model.js'
+import dataProcess from './dataProcess.model.js'
 
-const COLLECTION_NAME = 'lessons'
-const DOCUMENT_NAME = 'lesson'
+const COLLECTION_NAME = 'processes'
+const DOCUMENT_NAME = 'process'
 
-const lessonSchema = new mongoose.Schema(
+const processSchema = new mongoose.Schema(
   {
     subjectId: {
       type: String,
       required: true,
       ref: 'subject',
     },
-    topic: {
+    userEmail: {
       type: String,
       required: true,
+      maxLength: 255,
+      ref: 'user',
     },
-    time: {
-      type: Number,
-      required: true,
-    },
-    isPublished: {
+    status: {
       type: Boolean,
       default: false,
     },
     data: {
-      type: [dataLessonModel],
+      type: [dataProcess],
       required: true,
     },
     isDelete: {
@@ -38,6 +36,6 @@ const lessonSchema = new mongoose.Schema(
   },
 )
 
-lessonSchema.index({ subjectId: 1 })
+processSchema.index({ userEmail: 1, subjectId: 1 })
 
-export default mongoose.model(DOCUMENT_NAME, lessonSchema)
+export default mongoose.model(DOCUMENT_NAME, processSchema)

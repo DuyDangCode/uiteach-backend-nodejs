@@ -12,7 +12,7 @@ const find = ({
   filter = {},
   limit = 10,
   skip = 0,
-  sort = { update: -1 },
+  sort = { createdAt: 1 },
   select,
 } = {}) => {
   Object.assign(filter, { isDelete: false })
